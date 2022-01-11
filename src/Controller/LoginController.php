@@ -23,12 +23,6 @@ class LoginController extends AbstractController
             'error'         => $error,
         ]);
     }
-
-    #[Route('/home', name: 'home')]
-    public function home(): Response
-      {
-        return $this->render('login/home.html.twig');
-    }
     
     #[Route('/logout', name: 'app_logout')]
     public function logout(): void
