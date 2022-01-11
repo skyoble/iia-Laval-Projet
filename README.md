@@ -4,7 +4,10 @@ Symfony version 6
 Récupérez les dépendances du projet :
 ```
 composer install
+
+npm install
 ```
+
 
 Afin de démarrer le serveur il faut exécuter la commande :
 ```
