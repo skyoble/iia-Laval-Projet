@@ -17,16 +17,7 @@ class Seller
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $name;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $userName;
-
-    #[ORM\Column(type: 'integer')]
-    private $age;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $email;
+    private $code;
 
     #[ORM\OneToMany(mappedBy: 'id_Seller', targetEntity: Sale::class)]
     private $sales;
@@ -41,50 +32,14 @@ class Seller
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getCode(): ?string
     {
-        return $this->name;
+        return $this->code;
     }
 
-    public function setName(string $name): self
+    public function setCode(string $code): self
     {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getUserName(): ?string
-    {
-        return $this->userName;
-    }
-
-    public function setUserName(string $userName): self
-    {
-        $this->userName = $userName;
-
-        return $this;
-    }
-
-    public function getAge(): ?int
-    {
-        return $this->age;
-    }
-
-    public function setAge(int $age): self
-    {
-        $this->age = $age;
-
-        return $this;
-    }
-
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
-
-    public function setEmail(string $email): self
-    {
-        $this->email = $email;
+        $this->code = $code;
 
         return $this;
     }
