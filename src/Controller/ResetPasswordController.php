@@ -44,7 +44,6 @@ class ResetPasswordController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump("1");
             return $this->processSendingPasswordResetEmail(
                 $form->get('email')->getData(),
 
@@ -138,8 +137,6 @@ class ResetPasswordController extends AbstractController
             'email' => $emailFormData,
         ]);
 
-        dump($user);
-
         // Do not reveal whether a user account was found or not.
         if (!$user) {
             return $this->redirectToRoute('app_check_email');
@@ -156,7 +153,6 @@ class ResetPasswordController extends AbstractController
             //     'There was a problem handling your password reset request - %s',
             //     $e->getReason()
             // ));
-            dump($e->getReason());
             return $this->redirectToRoute('app_check_email');
         }
 

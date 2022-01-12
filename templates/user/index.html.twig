@@ -8,6 +8,14 @@
     {% block header %}
         {% include 'header.html.twig' %}
     {% endblock %}
-    <h1>User {{ user_email }}</h1>
-    
+    <div class="container">
+        <h3>Changer de mot de passe</h3>   
+        {% if success == true %}
+            <p style="color: green">Le mot de passe a bien été changé !</p>
+        {% endif %}
+        {{ form_start(requestForm) }}
+            {{ form_row(requestForm.plainPassword) }}            
+                    <button style="margin-top: 10px;">Changer mot de passe</button>
+        {{ form_end(requestForm) }}
+    <div>
 {% endblock %}

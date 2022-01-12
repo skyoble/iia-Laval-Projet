@@ -36,6 +36,22 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    /**
+     * Used to update user password.
+     */
+    public function updatePassword(User $user, string $newHashedPassword): void
+    {
+        if (!$user instanceof User) {
+            throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', \get_class($user)));
+        }
+
+        $user->setPassword($newHashedPassword);
+        $this->_em->persist($user);
+        $this->_em->flush();
+    }
+
+
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

@@ -16,4 +16,15 @@ class UserService
     {
         return $this->repoUser->findBy([]);
     }
+
+	public function find(int $id)
+	{
+        return $this->repoUser->find($id);
+	}
+
+	public function changePassword(int $id, String $hashedPassword)
+	{
+		$user = $this->find($id);
+		return $this->repoUser->updatePassword($user, $hashedPassword);
+	}
 }
