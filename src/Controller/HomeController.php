@@ -21,47 +21,25 @@ class HomeController extends AbstractController
     public function home(SaleService $srvSale): Response
     {        
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-
         return $this->render('home/index.html.twig', [
-            'sales' => $srvSale->findAll()
+            'reports' => $srvSale->getRapport()
         ]);
     }
 
-    /**
-     * @Route("/users", methods="GET")
-     */
-    public function findAll(UserService $srvUser): Response
-    {
-        return $this->render('home/users.html.twig', [
-            'users' => $srvUser->findAll()
-        ]);
-    }
+    #[Route('/detail{id}', name: 'app_detail')]
+    public function detail(RegionService $srvRegion, SaleService $srvSale, int $id): Response
+    {        
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-    /**
-     * @Route("/region", methods="GET")
-     */
-    public function findAll2(RegionService $srvRegion): Response
-    {
-        return $this->render('home/region.html.twig', [
-            'regions' => $srvRegion->findAll()
-        ]);
-    }
-    /**
-     * @Route("/sale", methods="GET")
-     */
-    public function findAll3(SaleService $srvSale): Response
-    {
-        return $this->render('home/sale.html.twig', [
-            'sales' => $srvSale->findAll()
-        ]);
-    }
-    /**
-     * @Route("/seller", methods="GET")
-     */
-    public function findAll4(SellerService $srvSeller): Response
-    {
-        return $this->render('home/seller.html.twig', [
-            'sellers' => $srvSeller->findAll()
+        //get region name
+        dump($id);
+        $region_name = $srvRegion->find($id)->getName();
+        dump($region_name);
+        dump($srvSale->getSaleByIdRegion($id));
+
+        return $this->render('home/detail.html.twig', [
+            'region_name' => $region_name,
+            'sales' => $srvSale->getSaleByIdRegion($id)
         ]);
     }
 }

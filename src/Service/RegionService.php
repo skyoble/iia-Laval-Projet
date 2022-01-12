@@ -16,4 +16,9 @@ class RegionService
     {
         return $this->repoRegion->findBy([]);
     }
+
+	public function find(int $id)
+	{
+        return $this->repoRegion->find($id);
+	}
 }

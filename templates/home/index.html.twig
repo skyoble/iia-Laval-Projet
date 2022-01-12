@@ -9,27 +9,25 @@
         {% include 'header.html.twig' %}
     {% endblock %}
     <div class="container">
-        <h1>Liste </h1>
+        <h1>Liste des ventes</h1>
 
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Montant</th>
-                    <th>Date</th>
-                    <th>Vendeur</th>
                     <th>Région</th>
+                    <th>Somme ventes</th>
+                    <th>Détail</th>
                 </tr>
             </thead>
 
             <tbody>
-                {% for sale in sales %}
+                {% for report in reports %}
                     <tr>
-                        <td>{{ sale.id }}</td>
-                        <td>{{ sale.montant }}</td>
-                        <td>{{ sale.sale_day }}</td>
-                        <td>{{ sale.id_Seller? sale.id_Seller.name }}</td>
-                        <td>{{ sale.id_Region? sale.id_Region.name }}</td>
+                        <td>{{ report.Name }}</td>
+                        <td>{{ report[1] }}</td>
+                        <td>
+                        <a href="{{ path('app_detail', {'id': report.id}) }}">Voir détails</a>
+                        </td>
                     </tr>
                 {% endfor %}
                 </tbody>

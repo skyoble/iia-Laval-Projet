@@ -19,6 +19,36 @@ class SaleRepository extends ServiceEntityRepository
         parent::__construct($registry, Sale::class);
     }
 
+
+    // /**
+    //  * @return sales rapport group by region with sales sum
+    //  */
+    public function getRapport()
+    {
+        return $this->createQueryBuilder("s")
+              ->select("region.id, region.Name, sum(s.montant)")
+              ->join("s.id_region", "region")
+              ->groupBy("region.Name")
+              ->getQuery()
+              ->getResult();
+    }
+
+    // /**
+    //  * @return sales by region with seller name
+    //  */
+    public function getSaleByIdRegion(int $id)
+    {
+        return $this->createQueryBuilder("s")
+              ->select("seller.name, s.montant, s.sale_day")
+              ->join("s.id_region", "region")
+              ->join("s.id_Seller", "seller")
+              ->where('region.id = :id')
+              ->setParameter('id', $id)
+              ->orderBy('s.sale_day', 'desc')
+              ->getQuery()
+              ->getResult();
+    }    
+
     // /**
     //  * @return Sale[] Returns an array of Sale objects
     //  */

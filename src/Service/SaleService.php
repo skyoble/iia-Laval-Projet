@@ -16,4 +16,14 @@ class SaleService
     {
         return $this->repoSale->findBy([]);
     }
+
+	public function getRapport()
+	{
+		return $this->repoSale->getRapport();
+	}
+
+	public function getSaleByIdRegion(int $id)
+	{
+		return $this->repoSale->getSaleByIdRegion($id);
+	}
 }
