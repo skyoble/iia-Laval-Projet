@@ -2,10 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Seller;
+use App\Entity\Sale;
+use App\Entity\Region;
 use App\Service\SaleService;
 use App\Service\UserService;
 use App\Service\RegionService;
 use App\Service\SellerService;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -55,6 +59,28 @@ class HomeController extends AbstractController
     {
         return $this->render('home/seller.html.twig', [
             'sellers' => $srvSeller->findAll()
+        ]);
+    }
+    /**
+     * @Route("/test", methods="GET")
+     */
+    public function findAll5(SellerService $srvSeller,SaleService $srvSale,RegionService $srvRegion, ManagerRegistry $doctrine ): Response
+    {
+        $sellerSale = $doctrine->getRepository(Sale::class)->find(3);
+
+        $categorySeller = $sellerSale->getSales()->getName();
+        $categoryRegion = $sellerSale->getSales()->getName();
+
+        dump ($sellerSale);
+        dump ($categoryName);
+        dump ($categorySeller);
+        dump ($categoryRegion);
+        return $this->render('home/test.html.twig', [
+            'sellers' => $srvSeller->findAll(),
+            'sales' => $srvSale->findAll(),
+            'regions' => $srvRegion->findAll()
+            // ,
+            // $categoryName
         ]);
     }
 }
