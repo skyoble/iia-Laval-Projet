@@ -17,22 +17,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-    /**
-     * @Route("/", methods="GET")
-     */
-    public function login(): Response
-    {
-        return $this->render('home/login.html.twig');
-    }
-
-    /**
-     * @Route("/", methods="POST")
-     */
-    public function processLogin(Request $request): Response
-    {
-        return $this->render('home/welcome.html.twig', [
-            'user' => $request->get('username')
-        ]);
+    #[Route('/home', name: 'app_home')]
+    public function home(): Response
+    {        
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+        return $this->render('home/index.html.twig');
     }
 
     /**
