@@ -8,5 +8,31 @@
     {% block header %}
         {% include 'header.html.twig' %}
     {% endblock %}
-    <h1>Home</h1>
+    <div class="container">
+        <h1>Liste </h1>
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Montant</th>
+                    <th>Date</th>
+                    <th>Vendeur</th>
+                    <th>Région</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for sale in sales %}
+                    <tr>
+                        <td>{{ sale.id }}</td>
+                        <td>{{ sale.montant }}</td>
+                        <td>{{ sale.sale_day }}</td>
+                        <td>{{ sale.id_Seller? sale.id_Seller.name }}</td>
+                        <td>{{ sale.id_Region? sale.id_Region.name }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+        </table>
+    </div>
 {% endblock %}

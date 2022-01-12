@@ -18,10 +18,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
-    public function home(): Response
+    public function home(SaleService $srvSale): Response
     {        
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
-        return $this->render('home/index.html.twig');
+
+        return $this->render('home/index.html.twig', [
+            'sales' => $srvSale->findAll()
+        ]);
     }
 
     /**
@@ -59,28 +62,6 @@ class HomeController extends AbstractController
     {
         return $this->render('home/seller.html.twig', [
             'sellers' => $srvSeller->findAll()
-        ]);
-    }
-    /**
-     * @Route("/test", methods="GET")
-     */
-    public function findAll5(SellerService $srvSeller,SaleService $srvSale,RegionService $srvRegion, ManagerRegistry $doctrine ): Response
-    {
-        $sellerSale = $doctrine->getRepository(Sale::class)->find(3);
-
-        $categorySeller = $sellerSale->getSales()->getName();
-        $categoryRegion = $sellerSale->getSales()->getName();
-
-        dump ($sellerSale);
-        dump ($categoryName);
-        dump ($categorySeller);
-        dump ($categoryRegion);
-        return $this->render('home/test.html.twig', [
-            'sellers' => $srvSeller->findAll(),
-            'sales' => $srvSale->findAll(),
-            'regions' => $srvRegion->findAll()
-            // ,
-            // $categoryName
         ]);
     }
 }

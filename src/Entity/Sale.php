@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\SaleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Region;
 
 #[ORM\Entity(repositoryClass: SaleRepository::class)]
 #[ORM\Table(name: '`sale`')]
@@ -79,7 +80,5 @@ class Sale
         $this->id_region = $id_region;
 
         return $this;
-    }
-
-    
+    }    
 }
