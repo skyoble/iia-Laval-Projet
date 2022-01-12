@@ -13,9 +13,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
 {
-    #[Route('/home', name: 'home')]
+    #[Route('/home', name: 'app_home')]
     public function home(): Response
-      {
+    {        
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         return $this->render('home/index.html.twig');
     }
 

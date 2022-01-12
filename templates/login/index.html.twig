@@ -6,35 +6,27 @@
 {% block body %}
     <style>
         body {display: flex; height: 100vh; justify-content: center; align-items: center; margin: 0; background-color: #E6E6FA}
-        .container {display: flex; padding: 20px; border-radius: 5px; box-shadow: 5px 5px 5px grey;background: #F5F5F5;}
-        .inputs {display: flex; flex-direction: column; align-items: center}
-        button {text-align: center}
-        .forgot_password {margin-top: 10px; color: #2C3E50; font-size: 0.7em}
+        label {text-align: center}
     </style>
-        
-    <div class="container">
-        <form action="{{ path('login') }}" method="post">
+    <form action="{{ path('login') }}" method="post">
+        {#Token nécéssaire pour sécuriser la faille CSRF#}
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
-            <div class="inputs">            
-                <label for="username">Email</label>
-                <input type="email" id="username" name="_username" value="{{ last_username }}"/>
-            
-                <label style="margin-top: 10px" for="password">Mot de passe</label>
-                <input type="password" id="password" name="_password"/>
+        {# <img class="mb-4" src="/docs/5.1/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> #}
+        <h1 class="h3 mb-3 fw-normal">Veuillez vous connecter</h1>
 
-                {#Token nécéssaire pour sécuriser la faille CSRF#}
-                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        <div class="form-floating">
+        <input type="email" class="form-control" id="floatingInput" name="_username" placeholder="nom@example.com">
+        <label for="floatingInput">Email</label>
+        </div>
+        <div class="form-floating mt-2">
+        <input type="password" class="form-control" id="floatingPassword" name="_password" placeholder="mot de passe">
+        <label for="floatingPassword">Mot de passe</label>
+        </div>
 
-                {# If you want to control the URL the user is redirected to on success
-                <input type="hidden" name="_target_path" value="/account"/> #}
-
-                {% if error %}
-                    <div style="margin-top: 10px">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-                {% endif %}
-
-                <button type="submit" style="margin-top: 15px">Connexion</button>
-                <a href="{{ path('app_forgot_password_request') }}" class="forgot_password">mot de passe oublié ?</a>
-            </div>
-        </form>
-    </div>
+        <button class="w-100 btn btn-lg btn-primary mt-4" type="submit">Connexion</button>
+        <div style="display: flex; justify-content: center;">
+            <a href="{{ path('app_forgot_password_request') }}" class="mt-2 mb-3 text-muted">mot de passe oublié ?</a>
+        </div>
+    </form>
 {% endblock %}
