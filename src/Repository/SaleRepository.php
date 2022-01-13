@@ -39,7 +39,7 @@ class SaleRepository extends ServiceEntityRepository
     public function getSaleByIdRegion(int $id)
     {
         return $this->createQueryBuilder("s")
-              ->select("seller.name, s.montant, s.sale_day")
+              ->select("seller.code, s.montant, s.sale_day")
               ->join("s.id_region", "region")
               ->join("s.id_Seller", "seller")
               ->where('region.id = :id')
